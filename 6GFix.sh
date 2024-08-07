@@ -3,7 +3,7 @@
 # 6GHzFix.sh (6GHzFix)
 #
 # Original Creation Date: 2024-Aug-07 by @ExtremeFiretop.
-# Last Modified: 2024-Aug-06
+# Last Modified: 2024-Aug-07
 ###################################################################
 
 # Define a log file location
