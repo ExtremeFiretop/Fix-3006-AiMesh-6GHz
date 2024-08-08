@@ -3,6 +3,6 @@ curl --retry 3 "https://raw.githubusercontent.com/ViktorJp/RTRMON/develop/rtrmon
 
 **Add:** sh /jffs/scripts/6GFix.sh
 
-**To:** post-mount or services-start
+**To:** post-mount
 
 Make sure to set the script permissions are set to: 755
