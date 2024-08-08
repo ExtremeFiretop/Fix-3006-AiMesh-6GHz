@@ -21,7 +21,7 @@ log_message() {
 log_message "Starting 6GHz Fix"
 
 log_message "SLEEPING"
-sleep 180
+sleep 300
 
 # Verify environment and permissions
 log_message "Current user: $(whoami)"
