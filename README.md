@@ -4,6 +4,7 @@ curl --retry 3 "https://raw.githubusercontent.com/ViktorJp/RTRMON/develop/rtrmon
 
 
 ##For Merlin Firmware:
+
 **Add:** sh /jffs/scripts/6GFix.sh
 
 **To:** post-mount
@@ -12,6 +13,7 @@ Make sure to set the script permissions are set to: 755
 
 
 ##For Stock Firmware:
+
 Add the script to: asusware.arm/etc/init.d/S50usb-mount-script
 
 cru a 6GHzWatchdog "1-59/5 * * * * /bin/sh /jffs/scripts/6GFix.sh"
