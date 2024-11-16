@@ -4,14 +4,14 @@ curl --retry 3 "https://raw.githubusercontent.com/ExtremeFiretop/3006.102-6GHzFi
 
 
 **-For Merlin Firmware:**
-**Add:** sh /jffs/scripts/6GFix.sh
+**Add:** "sh /jffs/scripts/6GFix.sh &"
 **To:** /jffs/scripts/services-start
 
 Make sure to set the script permissions are set to: 755
 
 
 **-For Stock Firmware:**
-**Add:** sh /jffs/scripts/6GFix.sh 
+**Add:** "sh /jffs/scripts/6GFix.sh &"
 **To:** asusware.arm/etc/init.d/S50usb-mount-script
 
 cru a 6GHzWatchdog "1-59/5 * * * * /bin/sh /jffs/scripts/6GFix.sh"
