@@ -21,5 +21,5 @@ Example below:
 
 cru a 6GHzWatchdog "1-59/5 * * * * /bin/sh /jffs/scripts/6GFix.sh"
 
--Make sure to set the script permissions are set to: 755
--More Info here: https://www.snbforums.com/threads/asus-rt-ax3000-firmware-version-3-0-0-4-388-23403-2023-05-31.85267/#post-846078
+Make sure to set the script permissions are set to: 755
+- More Info here: https://www.snbforums.com/threads/asus-rt-ax3000-firmware-version-3-0-0-4-388-23403-2023-05-31.85267/#post-846078
