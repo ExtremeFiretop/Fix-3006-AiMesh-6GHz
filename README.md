@@ -7,14 +7,14 @@ curl --retry 3 "https://raw.githubusercontent.com/ExtremeFiretop/3006.102-6GHzFi
 
 **Add:** sh /jffs/scripts/6GFix.sh
 
-**To:** services-start
+**To:** /jffs/scripts/services-start
 
 Make sure to set the script permissions are set to: 755
 
 
 ##For Stock Firmware:
 
-Add the script to: /jffs/scripts/services-start
+Add the script to: asusware.arm/etc/init.d/S50usb-mount-script
 
 cru a 6GHzWatchdog "1-59/5 * * * * /bin/sh /jffs/scripts/6GFix.sh"
 
