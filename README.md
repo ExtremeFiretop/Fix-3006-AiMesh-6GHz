@@ -4,8 +4,8 @@
 ##
 **Step 2: Setup**
 - **For Merlin Firmware:**
-**Add:** `sh /jffs/scripts/6GFix.sh &`
-**To:** `/jffs/scripts/services-start`
+- **Add:** `sh /jffs/scripts/6GFix.sh &`
+- **To:** `/jffs/scripts/services-start`
 
 Example below:
 `[ -f /jffs/scripts/6GFix.sh ] && sh /jffs/scripts/6GFix.sh & # Added by ExtremeFiretop`
