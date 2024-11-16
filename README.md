@@ -3,6 +3,7 @@
 - `curl --retry 3 "https://raw.githubusercontent.com/ExtremeFiretop/3006.102-6GHzFix/main/6GFix.sh" -o "/jffs/scripts/6GFix.sh" && chmod 755 "/jffs/scripts/6GFix.sh"`
 ##
 **Step 2: Setup**
+#
 **For Merlin Firmware:**
 - **Add:** `sh /jffs/scripts/6GFix.sh &`
 - **To:** `/jffs/scripts/services-start`
