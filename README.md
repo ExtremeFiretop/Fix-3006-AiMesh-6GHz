@@ -13,7 +13,7 @@ Example below:
 
 Make sure to set the script permissions are set to: 755
 
-**For Stock Firmware:**
+- **For Stock Firmware:**
 - **Add:** `sh /jffs/scripts/6GFix.sh &`
 - **To:** `asusware.arm/etc/init.d/S50usb-mount-script`
 
