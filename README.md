@@ -3,7 +3,7 @@
 - `curl --retry 3 "https://raw.githubusercontent.com/ExtremeFiretop/3006.102-6GHzFix/main/6GFix.sh" -o "/jffs/scripts/6GFix.sh" && chmod 755 "/jffs/scripts/6GFix.sh"`
 ##
 **Step 2: Setup**
-- **For Merlin Firmware:**
+**For Merlin Firmware:**
 - **Add:** `sh /jffs/scripts/6GFix.sh &`
 - **To:** `/jffs/scripts/services-start`
 
@@ -12,7 +12,7 @@ Example below:
 
 Make sure to set the script permissions are set to: 755
 
-- **For Stock Firmware:**
+**For Stock Firmware:**
 - **Add:** `sh /jffs/scripts/6GFix.sh &`
 - **To:** `asusware.arm/etc/init.d/S50usb-mount-script`
 
