@@ -1,6 +1,6 @@
 **Step 1: Download**
-- Download script to the following directory: jffs/scripts of the AiMesh node having issues trying to broadcast 6GHz with the 3006 parent router:
-curl --retry 3 "https://raw.githubusercontent.com/ExtremeFiretop/3006.102-6GHzFix/main/6GFix.sh" -o "/jffs/scripts/6GFix.sh" && chmod 755 "/jffs/scripts/6GFix.sh"
+- Download script to the following directory: `jffs/scripts` of the AiMesh node having issues trying to broadcast 6GHz with the 3006 parent router:
+`curl --retry 3 "https://raw.githubusercontent.com/ExtremeFiretop/3006.102-6GHzFix/main/6GFix.sh" -o "/jffs/scripts/6GFix.sh" && chmod 755 "/jffs/scripts/6GFix.sh"`
 ##
 **Step 2: Setup**
 **-For Merlin Firmware:**
