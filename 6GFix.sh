@@ -71,29 +71,13 @@ if $inRouterSWmode; then
   log_message "Debug: Value after removing GHz frequencies: $new_value"
 
   # Append the new value to the wl_ssid_value variable
-  wl_ssid_value="${new_value}2"
+  wl_ssid_value="${new_value}BH"
   log_message "Debug: wl_ssid_value updated to: $wl_ssid_value"
   
   if wl -i wl1 ssid "${wl_ssid_value}" >/dev/null 2>&1; then
     log_message "Debug: wl1 ssid set successfully in router mode to ${wl_ssid_value}."
   else
     log_message "Error: Failed to set wl1 ssid in router mode."
-  fi
-
-  # Commit changes to NVRAM
-  sleep 3
-  if nvram commit; then
-    log_message "Debug: NVRAM committed"
-  else
-    log_message "Error: Failed to commit NVRAM"
-  fi
-
-  # Restart wireless service
-  sleep 10
-  if service restart_wireless >/dev/null 2>&1; then
-    log_message "Debug: Wireless service restarted"
-  else
-    log_message "Error: Failed to restart wireless service"
   fi
   
   log_message "6GHz Fix Done (Router Mode)"
