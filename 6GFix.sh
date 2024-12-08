@@ -49,7 +49,7 @@ if $inRouterSWmode; then
   # Check if line is not empty
   if [ -z "$old_wl_ssid_value" ]; then
     log_message "Warning: Empty line encountered in wl_ssid_values"
-    exit
+    exit 1
   fi
 
   # Extract the variable name
@@ -59,7 +59,7 @@ if $inRouterSWmode; then
   # Ensure the variable name is not empty
   if [ -z "$var_name" ]; then
     log_message "Error: Failed to extract var_name from line: $line"
-    exit
+    exit 1
   fi
 
   # Remove '_dwb' from the value if existing
