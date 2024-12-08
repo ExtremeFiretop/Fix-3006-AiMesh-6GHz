@@ -4,6 +4,9 @@
 #
 # Original Creation Date: 2024-Aug-07 by @ExtremeFiretop.
 # Last Modified: 2024-Aug-07
+#
+# Modified to conditionally run either a single wl command or all 
+# the original logic depending on sw_mode.
 ###################################################################
 
 # Define a log file location
@@ -19,6 +22,28 @@ log_message() {
 
 # Log script start
 log_message "Starting 6GHz Fix"
+
+# Determine if we are in router mode
+if [ "$(nvram get sw_mode)" -eq 1 ]; then
+  inRouterSWmode=true
+else
+  inRouterSWmode=false
+fi
+
+if $inRouterSWmode; then
+  # If we are in router mode, just run this single command and exit
+  log_message "Router Mode detected. Setting wl1 ssid to Whose Line-WiFi7-BACKHAUL"
+  if wl -i wl1 ssid "Whose Line-WiFi7-BACKHAUL" >/dev/null 2>&1; then
+    log_message "Debug: wl1 ssid set successfully in router mode."
+  else
+    log_message "Error: Failed to set wl1 ssid in router mode."
+  fi
+  log_message "6GHz Fix Done (Router Mode)"
+  exit 0
+fi
+
+# If not in router mode, proceed with the original logic
+log_message "Not in router mode, proceeding with full steps."
 
 log_message "SLEEPING"
 sleep 300
