@@ -23,6 +23,9 @@ log_message() {
 # Log script start
 log_message "Starting 6GHz Fix"
 
+log_message "SLEEPING"
+sleep 300
+
 # Determine if we are in router mode
 if [ "$(nvram get sw_mode)" -eq 1 ]; then
   inRouterSWmode=true
@@ -57,9 +60,6 @@ fi
 
 # If not in router mode, proceed with the original logic
 log_message "Not in router mode, proceeding with full steps."
-
-log_message "SLEEPING"
-sleep 300
 
 # Verify environment and permissions
 log_message "Current user: $(whoami)"
