@@ -35,7 +35,7 @@ fi
 
 if $inRouterSWmode; then
   # If we are in router mode, just run this single command and exit
-  log_message "Router Mode detected. Setting wl1 ssid to Whose Line-WiFi7-BACKHAUL"
+  log_message "Router Mode detected. Setting wl1 ssid"
 
   # Find all NVRAM variables matching the pattern wlc*_ssid that contain "dwb"
   wlc_ssid_value=$(nvram show | grep -E 'wl0_ssid')
