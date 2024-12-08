@@ -43,8 +43,8 @@ if $inRouterSWmode; then
   log_message "Router Mode detected. Setting wl1 ssid"
 
   # Find all NVRAM variables matching the pattern wlc*_ssid that contain "dwb"
-  old_wl_ssid_value=$(nvram show | grep -E 'wl0_ssid')
-  log_message "Debug: Found wl_ssid_value: $old_wl_ssid_value"
+  old_wl_ssid_value=$(nvram show | grep -E 'wl1_ssid')
+  log_message "Debug: Found wl1_ssid_value: $old_wl_ssid_value"
 
   # Check if line is not empty
   if [ -z "$old_wl_ssid_value" ]; then
@@ -62,17 +62,9 @@ if $inRouterSWmode; then
     exit
   fi
 
-  # Remove '_dwb' from the value
+  # Remove '_dwb' from the value if existing
   new_value=$(echo "$var_name" | sed 's/_dwb//g')
   log_message "Debug: Value after removing '_dwb': $new_value"
-  
-  # Remove "2.4GHz" or "5GHz" or "6GHz", case-insensitive 
-  new_value=$(echo "$new_value" | sed -E 's/(2\.4|5|6)GHz//I')
-  log_message "Debug: Value after removing GHz frequencies: $new_value"
-
-  # Append the new value to the wl_ssid_value variable
-  wl_ssid_value="${new_value}BH"
-  log_message "Debug: wl_ssid_value updated to: $wl_ssid_value"
   
   if wl -i wl1 ssid "${wl_ssid_value}" >/dev/null 2>&1; then
     log_message "Debug: wl1 ssid set successfully in router mode to ${wl_ssid_value}."
@@ -154,11 +146,11 @@ for line in $wlc_ssid_values; do
   current_value=$(echo "$line" | cut -d'=' -f2-)
   log_message "Debug: Current value of $var_name: $current_value"
 
-  # Remove '_dwb' from the value
+  # Remove '_dwb' from the value  if existing
   new_value=$(echo "$current_value" | sed 's/_dwb//g')
   log_message "Debug: Value after removing '_dwb': $new_value"
 
-  # Replace "2.4GHz" or "5GHz" with "6GHz", case-insensitive
+  # Replace "2.4GHz" or "5GHz" with "6GHz", case-insensitive if existing
   new_value=$(echo "$new_value" | sed -E 's/(2\.4|5)GHz/6GHz/I')
   log_message "Debug: Value after replacing with 6GHz: $new_value"
 
@@ -189,14 +181,6 @@ else
   log_message "Error: Failed to commit NVRAM"
 fi
 
-# Turn on the radio and set up the interface
-sleep 3
-if wl -i wl2.1 ssid "$wl_ssid_value" >/dev/null 2>&1; then
-  log_message "Debug: Wireless interface wl2.1 ssid set to $wl_ssid_value"
-else
-  log_message "Error: Failed to set wireless interface wl2.1 ssid to $wl_ssid_value"
-fi
-
 # Restart wireless service
 sleep 10
 if service restart_wireless >/dev/null 2>&1; then
@@ -205,7 +189,14 @@ else
   log_message "Error: Failed to restart wireless service"
 fi
 
-sleep 10
+# Turn on the radio and set up the interface
+sleep 3
+if wl -i wl2.1 ssid "$wl_ssid_value" >/dev/null 2>&1; then
+  log_message "Debug: Wireless interface wl2.1 ssid set to $wl_ssid_value"
+else
+  log_message "Error: Failed to set wireless interface wl2.1 ssid to $wl_ssid_value"
+fi
+
 log_message "6GHz Fix Done"
 
 exit 0
