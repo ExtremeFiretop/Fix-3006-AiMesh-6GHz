@@ -38,22 +38,59 @@ if $inRouterSWmode; then
   log_message "Router Mode detected. Setting wl1 ssid"
 
   # Find all NVRAM variables matching the pattern wlc*_ssid that contain "dwb"
-  wlc_ssid_value=$(nvram show | grep -E 'wl0_ssid')
-  log_message "Debug: Found wlc_ssid_values: $wlc_ssid_value"
+  wl_ssid_value=$(nvram show | grep -E 'wl0_ssid')
+  log_message "Debug: Found wl_ssid_value: $wlc_ssid_value"
+
+  # Check if line is not empty
+  if [ -z "$wl_ssid_value" ]; then
+    log_message "Warning: Empty line encountered in wl_ssid_values"
+    exit
+  fi
+
+  # Extract the variable name
+  var_name=$(echo "$wl_ssid_value" | cut -d'=' -f2)
+  log_message "Debug: Processing var_name: $var_name"
+
+  # Ensure the variable name is not empty
+  if [ -z "$var_name" ]; then
+    log_message "Error: Failed to extract var_name from line: $line"
+    exit
+  fi
 
   # Remove '_dwb' from the value
-  new_value=$(echo "$wlc_ssid_value" | sed 's/_dwb//g')
-  # Remove "2.4GHz" or "5GHz" or "6GHz", case-insensitive
+  new_value=$(echo "$var_name" | sed 's/_dwb//g')
   log_message "Debug: Value after removing '_dwb': $new_value"
   
+  # Remove "2.4GHz" or "5GHz" or "6GHz", case-insensitive 
   new_value=$(echo "$new_value" | sed -E 's/(2\.4|5|6)GHz//I')
   log_message "Debug: Value after removing GHz frequencies: $new_value"
+
+  # Append the new value to the wl_ssid_value variable
+  wl_ssid_value="${new_value}-BACKHAUL"
+  log_message "Debug: wl_ssid_value updated to: $wl_ssid_value"
   
-  if wl -i wl1 ssid "${new_value}BACKHAUL" >/dev/null 2>&1; then
-    log_message "Debug: wl1 ssid set successfully in router mode to ${new_value}BACKHAUL."
+  if wl -i wl1 ssid "${wl_ssid_value}" >/dev/null 2>&1; then
+    log_message "Debug: wl1 ssid set successfully in router mode to ${wl_ssid_value}."
   else
     log_message "Error: Failed to set wl1 ssid in router mode."
   fi
+
+  # Commit changes to NVRAM
+  sleep 3
+  if nvram commit; then
+    log_message "Debug: NVRAM committed"
+  else
+    log_message "Error: Failed to commit NVRAM"
+  fi
+
+  # Restart wireless service
+  sleep 10
+  if service restart_wireless >/dev/null 2>&1; then
+    log_message "Debug: Wireless service restarted"
+  else
+    log_message "Error: Failed to restart wireless service"
+  fi
+  
   log_message "6GHz Fix Done (Router Mode)"
   exit 0
 fi
