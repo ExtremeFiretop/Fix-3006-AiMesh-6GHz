@@ -63,8 +63,8 @@ if $inRouterSWmode; then
   fi
 
   # Remove '_dwb' from the value if existing
-  new_value=$(echo "$var_name" | sed 's/_dwb//g')
-  log_message "Debug: Value after removing '_dwb': $new_value"
+  wl_ssid_value=$(echo "$var_name" | sed 's/_dwb//g')
+  log_message "Debug: Value after removing '_dwb': $wl_ssid_value"
   
   if wl -i wl1 ssid "${wl_ssid_value}" >/dev/null 2>&1; then
     log_message "Debug: wl1 ssid set successfully in router mode to ${wl_ssid_value}."
