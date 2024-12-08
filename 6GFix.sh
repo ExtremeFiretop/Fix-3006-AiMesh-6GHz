@@ -33,8 +33,21 @@ fi
 if $inRouterSWmode; then
   # If we are in router mode, just run this single command and exit
   log_message "Router Mode detected. Setting wl1 ssid to Whose Line-WiFi7-BACKHAUL"
-  if wl -i wl1 ssid "Whose Line-WiFi7-BACKHAUL" >/dev/null 2>&1; then
-    log_message "Debug: wl1 ssid set successfully in router mode."
+
+  # Find all NVRAM variables matching the pattern wlc*_ssid that contain "dwb"
+  wlc_ssid_value=$(nvram show | grep -E 'wl0_ssid')
+  log_message "Debug: Found wlc_ssid_values: $wlc_ssid_value"
+
+  # Remove '_dwb' from the value
+  new_value=$(echo "$wlc_ssid_value" | sed 's/_dwb//g')
+  # Remove "2.4GHz" or "5GHz" or "6GHz", case-insensitive
+  log_message "Debug: Value after removing '_dwb': $new_value"
+  
+  new_value=$(echo "$new_value" | sed -E 's/(2\.4|5|6)GHz//I')
+  log_message "Debug: Value after removing GHz frequencies: $new_value"
+  
+  if wl -i wl1 ssid "$new_value-BACKHAUL" >/dev/null 2>&1; then
+    log_message "Debug: wl1 ssid set successfully in router mode to ${new_value}-BACKHAUL."
   else
     log_message "Error: Failed to set wl1 ssid in router mode."
   fi
