@@ -49,8 +49,8 @@ if $inRouterSWmode; then
   new_value=$(echo "$new_value" | sed -E 's/(2\.4|5|6)GHz//I')
   log_message "Debug: Value after removing GHz frequencies: $new_value"
   
-  if wl -i wl1 ssid "$new_value-BACKHAUL" >/dev/null 2>&1; then
-    log_message "Debug: wl1 ssid set successfully in router mode to ${new_value}-BACKHAUL."
+  if wl -i wl1 ssid "${new_value}BACKHAUL" >/dev/null 2>&1; then
+    log_message "Debug: wl1 ssid set successfully in router mode to ${new_value}BACKHAUL."
   else
     log_message "Error: Failed to set wl1 ssid in router mode."
   fi
