@@ -20,6 +20,11 @@ log_message() {
 # Overwrite the log file if it already exists
 : > "$LOGFILE"
 
+# Verify environment and permissions
+log_message "Current user: $(whoami)"
+log_message "Current directory: $(pwd)"
+log_message "Shell: $SHELL"
+
 # Log script start
 log_message "Starting 6GHz Fix"
 
@@ -39,7 +44,7 @@ if $inRouterSWmode; then
 
   # Find all NVRAM variables matching the pattern wlc*_ssid that contain "dwb"
   wl_ssid_value=$(nvram show | grep -E 'wl0_ssid')
-  log_message "Debug: Found wl_ssid_value: $wlc_ssid_value"
+  log_message "Debug: Found wl_ssid_value: $wl_ssid_value"
 
   # Check if line is not empty
   if [ -z "$wl_ssid_value" ]; then
@@ -66,7 +71,7 @@ if $inRouterSWmode; then
   log_message "Debug: Value after removing GHz frequencies: $new_value"
 
   # Append the new value to the wl_ssid_value variable
-  wl_ssid_value="${new_value}-BACKHAUL"
+  wl_ssid_value="${new_value}2"
   log_message "Debug: wl_ssid_value updated to: $wl_ssid_value"
   
   if wl -i wl1 ssid "${wl_ssid_value}" >/dev/null 2>&1; then
@@ -97,11 +102,6 @@ fi
 
 # If not in router mode, proceed with the original logic
 log_message "Not in router mode, proceeding with full steps."
-
-# Verify environment and permissions
-log_message "Current user: $(whoami)"
-log_message "Current directory: $(pwd)"
-log_message "Shell: $SHELL"
 
 # Retrieve NVRAM variables matching the pattern wlc*_closed
 wlc_closed_values=$(nvram show | grep -E '^wlc[0-9]*_closed=')
