@@ -43,17 +43,17 @@ if $inRouterSWmode; then
   log_message "Router Mode detected. Setting wl1 ssid"
 
   # Find all NVRAM variables matching the pattern wlc*_ssid that contain "dwb"
-  wl_ssid_value=$(nvram show | grep -E 'wl0_ssid')
-  log_message "Debug: Found wl_ssid_value: $wl_ssid_value"
+  old_wl_ssid_value=$(nvram show | grep -E 'wl0_ssid')
+  log_message "Debug: Found wl_ssid_value: $old_wl_ssid_value"
 
   # Check if line is not empty
-  if [ -z "$wl_ssid_value" ]; then
+  if [ -z "$old_wl_ssid_value" ]; then
     log_message "Warning: Empty line encountered in wl_ssid_values"
     exit
   fi
 
   # Extract the variable name
-  var_name=$(echo "$wl_ssid_value" | cut -d'=' -f2)
+  var_name=$(echo "$old_wl_ssid_value" | cut -d'=' -f2)
   log_message "Debug: Processing var_name: $var_name"
 
   # Ensure the variable name is not empty
