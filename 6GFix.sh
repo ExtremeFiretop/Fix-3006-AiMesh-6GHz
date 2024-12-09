@@ -58,7 +58,7 @@ if $inRouterSWmode; then
 
   # Ensure the variable name is not empty
   if [ -z "$var_name" ]; then
-    log_message "Error: Failed to extract var_name from line: $line"
+    log_message "Error: Failed to extract var_name from line: $var_name"
     exit 1
   fi
 
